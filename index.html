@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classificando Triângulos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -12,33 +14,35 @@
     <main>
         <section id="display-section">
             <canvas></canvas>
+            <!--
             <footer>
                 <h3>Não é um triângulo</h3>
             </footer>
+            -->
         </section>
         <section id="controls-section">
             <div class="controls">
                 <form>
                     <div class="input-group">
                         <label for="lado-a-input">Lado A</label>
-                        <input type="number" name="ladoA" id="lado-a-input">
+                        <input type="text" name="ladoA" id="lado-a-input" placeholder="Digite o comprimento do lado do triângulo" tabindex="1" autofocus>
                     </div>
                     <div class="input-group">
                         <label for="lado-b-input">Lado B</label>
-                        <input type="number" name="ladoB" id="lado-b-input">
+                        <input type="text" name="ladoB" id="lado-b-input" placeholder="Digite o comprimento do lado do triângulo" tabindex="2">
                     </div>
                     <div class="input-group">
                         <label for="lado-c-input">Lado C</label>
-                        <input type="number" name="ladoC" id="lado-c-input">
+                        <input type="text" name="ladoC" id="lado-c-input" placeholder="Digite o comprimento do lado do triângulo" tabindex="3">
                     </div>
 
                     <div class="input-group">
-                        <label for="color-input">Color</label>
-                        <input type="color" name="color" id="color-input">
+                        <label for="color-input">Cor</label>
+                        <input type="color" name="color" id="color-input" placeholder="Digite o comprimento do lado do triângulo" tabindex="4">
                     </div>
 
                     <div class="input-group">
-                        <button>Adicionar</button>
+                        <button id="adicionar-triangulo-btn" type="button" onclick="" tabindex="5">Adicionar</button>
                     </div>
 
                 </form>
