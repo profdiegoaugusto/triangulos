@@ -6,26 +6,35 @@ class Triangulo {
         this.x = x;
         this.y = y;
 
-        this.ladoA = comprimentoA;
-        this.ladoB = comprimentoB;
-        this.ladoC = comprimentoC;
+        this.distanciaAB = comprimentoA;
+        this.distanciaBC = comprimentoB;
+        this.distanciaCA = comprimentoC;
 
         this.pontoA = {
-            x: 0,
-            y: 0
+            x: this.x,
+            y: this.y
         }
 
         this.pontoB = {
-            x: 0,
-            y: 0
+            x: this.x + this.distanciaAB,
+            y: this.y
         }
+
+        
+
+        console.log("AB = " + this.distanciaAB);
+        console.log("BC = " + this.distanciaBC);
+        console.log("CA = " + this.distanciaCA);
+
+        let xPontoC = ((Math.pow(this.distanciaAB, 2) + Math.pow(this.distanciaCA, 2)) - (Math.pow(this.distanciaBC, 2))) / (2 * this.distanciaAB);
+        let yPontoC = Math.sqrt((this.distanciaCA * this.distanciaCA) - (xPontoC * xPontoC));
 
         this.pontoC = {
-            x: 0,
-            y: 0
+            x: this.x + xPontoC,
+            y: this.y + yPontoC
         }
 
-        this.centroide = Triangulo.calculaCentroid(this.pontoA, this.pontoB, this.pontoC);
+        this.centroide = Triangulo.calculaCentroide(this.pontoA, this.pontoB, this.pontoC);
     }
 
     get X() { return this.x; }
@@ -60,8 +69,8 @@ class Triangulo {
         let centroideY = (pontoA.y + pontoB.y + pontoC.y) / 3;
 
         return {
-            x: x,
-            y: y
+            x: centroideX,
+            y: centroideY
         }
     }
 
