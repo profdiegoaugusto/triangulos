@@ -9,6 +9,23 @@ class Triangulo {
         this.ladoA = comprimentoA;
         this.ladoB = comprimentoB;
         this.ladoC = comprimentoC;
+
+        this.pontoA = {
+            x: 0,
+            y: 0
+        }
+
+        this.pontoB = {
+            x: 0,
+            y: 0
+        }
+
+        this.pontoC = {
+            x: 0,
+            y: 0
+        }
+
+        this.centroide = Triangulo.calculaCentroid(this.pontoA, this.pontoB, this.pontoC);
     }
 
     get X() { return this.x; }
@@ -37,9 +54,23 @@ class Triangulo {
         return this.ladoC = value; 
     }
 
+    static calculaCentroide(pontoA, pontoB, pontoC) {
 
-    determinaTipoTriangulo(a, b, c) {
+        let centroideX = (pontoA.x + pontoB.x + pontoC.x) / 3;
+        let centroideY = (pontoA.y + pontoB.y + pontoC.y) / 3;
+
+        return {
+            x: x,
+            y: y
+        }
+    }
+
+
+    static determinaTipoTriangulo(a, b, c) {
 
     }
 
 }
+
+
+Triangulo.TIPO_TRIANGULO = ["Escaleno", "Inexistente", "Isóceles", "Equilátero"]
