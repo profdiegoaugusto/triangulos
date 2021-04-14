@@ -1,17 +1,12 @@
+
+let triangulo = null;
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-let x = 0;
-let y = 0;
+const cores = ["#EFB605", "#E58903", "#E01A25", "#C20049", "#991C71", "#66489F", "#2074A0", "#10A66E", "#7EB852"];
 
-
-window.addEventListener("load", () => {
-
-    ctx.beginPath();
-    ctx.clearRect(x, y, canvas.clientWidth, canvas.clientHeight);
-
-});
-
+const PADDING = 32;
 
 function draw() {
 
@@ -21,31 +16,72 @@ function draw() {
 
     let corLinha = document.querySelector("#color-input").value;
 
-    let largura = canvas.clientWidth / 2;
-    let altura = canvas.clientHeight / 2;
+    let largura = canvas.clientWidth;
+    let altura = canvas.clientHeight;
 
     let x = largura / 2;
     let y = altura / 2;
 
-    let triangulo = new Triangulo(x, y, ladoA, ladoB, ladoC);
+    triangulo = new Triangulo(x, y, ladoA, ladoB, ladoC);
 
     if (canvas.getContext) {
 
-        ctx.strokeStyle = corLinha;
+        ctx.strokeStyle = "#FFFFFF";
         ctx.fillStyle = corLinha;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 8;
 
         ctx.beginPath();
-        ctx.clearRect(x, y, canvas.clientWidth, canvas.clientHeight);
+        ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
         
-        ctx.moveTo(triangulo.pontoA.x, triangulo.pontoA.y);
-        ctx.lineTo(triangulo.pontoB.x, triangulo.pontoB.y);
-        ctx.lineTo(triangulo.pontoC.x, triangulo.pontoC.y);
+        ctx.moveTo(triangulo.pontoA.x, canvas.clientHeight - triangulo.pontoA.y);
+        ctx.lineTo(triangulo.pontoB.x, canvas.clientHeight - triangulo.pontoB.y);
+        ctx.lineTo(triangulo.pontoC.x, canvas.clientHeight - triangulo.pontoC.y);
+
+
         ctx.closePath();
 
         ctx.stroke();
         ctx.fill();
+
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 4;
+        ctx.font = '32px Arial';
+        ctx.lineJoin = 'round';
+        ctx.strokeText(triangulo.tipoTriangulo, PADDING, altura - PADDING);
+        ctx.fillStyle = "#000000";
+        ctx.fillText(triangulo.tipoTriangulo, PADDING, altura - PADDING);
+
     }
-
-
 }
+
+
+function drawCentroid() {
+    ctx.beginPath();
+    ctx.moveTo(0,  0);
+    ctx.arc(triangulo.centroide.x, triangulo.centroide.y, 8, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+window.addEventListener("load", () => {
+
+    ctx.beginPath();
+    ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    ctx.closePath();
+
+    window.devicePixelRatio = 2;
+
+    let min = Math.ceil(0);
+    let max = Math.floor(cores.length);
+    let i = Math.floor(Math.random() * (max - min)) + min;
+
+    
+    document.querySelector("#color-input").value = cores[i];
+
+
+});
+
+window.addEventListener("resize", draw());
+
+document.getElementById("adicionar-triangulo-btn").addEventListener("click", () => { draw(); });

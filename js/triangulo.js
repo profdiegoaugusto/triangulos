@@ -8,8 +8,9 @@ class Triangulo {
 
         this.distanciaAB = comprimentoA;
         this.distanciaBC = comprimentoB;
-        this.distanciaCA = comprimentoC;
+        this.distanciaAC = comprimentoC;
 
+        
         this.pontoA = {
             x: this.x,
             y: this.y
@@ -20,8 +21,8 @@ class Triangulo {
             y: this.y
         }
 
-        let xPontoC = ((Math.pow(this.distanciaAB, 2) + Math.pow(this.distanciaCA, 2)) - (Math.pow(this.distanciaBC, 2))) / (2 * this.distanciaAB);
-        let yPontoC = Math.sqrt((this.distanciaCA * this.distanciaCA) - (xPontoC * xPontoC));
+        let xPontoC = ((Math.pow(this.distanciaAB, 2) + Math.pow(this.distanciaAC, 2)) - (Math.pow(this.distanciaBC, 2))) / (2 * this.distanciaAB);
+        let yPontoC = Math.sqrt((this.distanciaAC * this.distanciaAC) - (xPontoC * xPontoC));
 
         this.pontoC = {
             x: this.x + xPontoC,
@@ -29,6 +30,24 @@ class Triangulo {
         }
 
         this.centroide = Triangulo.calculaCentroide(this.pontoA, this.pontoB, this.pontoC);
+        this.tipo = Triangulo.determinaTipoTriangulo(this.distanciaAB, this.distanciaBC, this.distanciaAC);
+
+        // Atualiza pontos (x, y) para centralizar triângulo na tela.
+        let deslocamentoX = this.centroide.x - this.x;
+        let deslocamentoY = this.centroide.y - this.y;
+
+        this.pontoA.x -= deslocamentoX;
+        this.pontoA.y -= deslocamentoY;
+
+        this.pontoB.x -= deslocamentoX;
+        this.pontoB.y -= deslocamentoY;
+        
+        this.pontoC.x -= deslocamentoX;
+        this.pontoC.y -= deslocamentoY;
+
+        // Atualiza centróide com os novos valores dos pontos (x, y) do triângulo
+        this.centroide = Triangulo.calculaCentroide(this.pontoA, this.pontoB, this.pontoC);
+        
     }
 
     get X() { return this.x; }
@@ -57,6 +76,8 @@ class Triangulo {
         return this.ladoC = value; 
     }
 
+    get tipoTriangulo() { return this.tipo; }
+
     static calculaCentroide(pontoA, pontoB, pontoC) {
 
         let centroideX = (pontoA.x + pontoB.x + pontoC.x) / 3;
@@ -71,9 +92,29 @@ class Triangulo {
 
     static determinaTipoTriangulo(a, b, c) {
 
+        let tipo = this.TIPO_TRIANGULO.escaleno;
+
+        if (a <= 0 || b <= 0 || c <= 0)
+            tipo = this.TIPO_TRIANGULO.inexistente;
+        else if (!((a + b > c) && (a + c > b) && (b + c > a)))
+            tipo = this.TIPO_TRIANGULO.inexistente;
+        else if (a == b) {
+
+            tipo = this.TIPO_TRIANGULO.isoceles;
+
+            if (b == c)
+                tipo = this.TIPO_TRIANGULO.equilatero;
+        } else if (b == c || a == c) 
+            tipo = this.TIPO_TRIANGULO.isoceles;
+
+        return tipo;
     }
 
 }
 
-
-Triangulo.TIPO_TRIANGULO = ["Escaleno", "Inexistente", "Isóceles", "Equilátero"]
+Triangulo.TIPO_TRIANGULO = { 
+    escaleno: "Escaleno", 
+    inexistente: "Inexistente", 
+    isoceles: "Isóceles", 
+    equilatero: "Equilátero"
+};

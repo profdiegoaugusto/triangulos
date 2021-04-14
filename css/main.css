@@ -106,4 +106,8 @@ label {
         flex-flow: row wrap;
     }
 
+    input {
+        max-width: 64px;
+    }
+
 }
