@@ -7,13 +7,8 @@ let y = 0;
 
 window.addEventListener("load", () => {
 
-    
-
-
-    
-    
-
-    
+    ctx.beginPath();
+    ctx.clearRect(x, y, canvas.clientWidth, canvas.clientHeight);
 
 });
 
@@ -26,8 +21,8 @@ function draw() {
 
     let corLinha = document.querySelector("#color-input").value;
 
-    let largura = canvas.clientWidth;
-    let altura = canvas.clientHeight;
+    let largura = canvas.clientWidth / 2;
+    let altura = canvas.clientHeight / 2;
 
     let x = largura / 2;
     let y = altura / 2;
@@ -36,17 +31,20 @@ function draw() {
 
     if (canvas.getContext) {
 
+        ctx.strokeStyle = corLinha;
+        ctx.fillStyle = corLinha;
+        ctx.lineWidth = 2;
+
         ctx.beginPath();
-
-        ctx.clearRect(x, y, largura, altura);
-
+        ctx.clearRect(x, y, canvas.clientWidth, canvas.clientHeight);
+        
         ctx.moveTo(triangulo.pontoA.x, triangulo.pontoA.y);
         ctx.lineTo(triangulo.pontoB.x, triangulo.pontoB.y);
         ctx.lineTo(triangulo.pontoC.x, triangulo.pontoC.y);
-
         ctx.closePath();
-        ctx.stroke();
 
+        ctx.stroke();
+        ctx.fill();
     }
 
 

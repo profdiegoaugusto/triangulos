@@ -20,12 +20,6 @@ class Triangulo {
             y: this.y
         }
 
-        
-
-        console.log("AB = " + this.distanciaAB);
-        console.log("BC = " + this.distanciaBC);
-        console.log("CA = " + this.distanciaCA);
-
         let xPontoC = ((Math.pow(this.distanciaAB, 2) + Math.pow(this.distanciaCA, 2)) - (Math.pow(this.distanciaBC, 2))) / (2 * this.distanciaAB);
         let yPontoC = Math.sqrt((this.distanciaCA * this.distanciaCA) - (xPontoC * xPontoC));
 
