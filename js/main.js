@@ -80,8 +80,12 @@ function updateResolution() {
     largura = canvas.clientWidth;
     altura = canvas.clientHeight;
 
+    console.log(canvas.width);
+
     centro.x = largura / 2;
     centro.y = altura / 2;
+
+
 
     canvas.width = largura;
     canvas.height = altura;
@@ -97,16 +101,11 @@ function clearCanvas() {
 window.addEventListener("load", () => {
 
     clearCanvas();
-
     updateResolution();
-
-
-    window.devicePixelRatio = 2;
 
     let min = Math.ceil(0);
     let max = Math.floor(cores.length);
     let i = Math.floor(Math.random() * (max - min)) + min;
-
     
     document.querySelector("#color-input").value = cores[i];
 
